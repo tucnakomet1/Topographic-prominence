@@ -16,7 +16,11 @@ values = [int(_) for _ in input().split()]  # enter velues splitted by space
 values.append(0)
 values.insert(0, 0)
 
-prominence(h)
+for i in range(0, len(values)):
+    if (values[i] < 1):
+        exit(1)
+
+prominence(values)
 
 #### input ####
 # 47 43 47 42 48 48 42
