@@ -51,17 +51,17 @@ def calculate_prominance(indx, i_value):
         p_left = min(left_list)
         prominance = i_value - p_left                    # >>> calculating prominance
 
-    else:                                           # - when index is somewhere in the between, calculating both sides
-        left_list = left(i_value, indx, values)     # - at first calculates values on right side, than left side
+    else:                                           # - when index is somewhere in the between, calculate both sides
+        left_list = left(i_value, indx, values)     # - at first on right side, than left side
         right_list = right(i_value, indx, values)   
 
-        p_left = min(left_list)                     # now finding the minimum value in peak list
+        p_left = min(left_list)                     # now finding the lowest value in peak list
         p_right = min(right_list)
 
         l = i_value - p_left                             # >>> calculating prominence
         r = i_value - p_right
         if (l > r):
-            prominance = r                          # choosing better (smaller) promimence as result
+            prominance = r                          # choosing best (smallest) promimence as a result
         else:
             prominance = l
 
@@ -73,12 +73,12 @@ def calculate_prominance(indx, i_value):
 def right(i_value, indx, values):
     right_list = []
 
-    for r in range(indx + 1, len(values)):    # 'index + 1' -> we dont want to start at index position (i_value)
+    for r in range(indx + 1, len(values)):    # 'index + 1' -> we don't want to start at index position (i_value)
         r_value = values[r]
 
-        if (i_value > r_value):               # adding to list while 'i_value' is bigger than 'r_value' (value somewhere right)
+        if (i_value > r_value):               # adding to the list while 'i_value' is bigger than 'r_value' (value somewhere right)
             right_list.append(r_value)
-            if (r == len(values) -1):         # if we are at the and of the list and there was no higher peak... return 0
+            if (r == len(values) -1):         # if we are at the end of the list and there was no higher peak, return 0
                 right_list = [0]
 
         elif (i_value == r_value):
@@ -95,9 +95,9 @@ def left(i_value, indx, values):
     for l in range(indx - 1, -1, -1):       # reverse loop - we need to go left
         l_value = values[l]
 
-        if (i_value >= l_value):            # adding to list while 'i_value' is bigger than 'l_value' (value somewhere left)
+        if (i_value >= l_value):            # adding to the list while 'i_value' is bigger than 'l_value' (value somewhere left)
             left_list.append(l_value)
-            if (l == 0):                    # if we are at the and of the list and there was no higher peak... return 0
+            if (l == 0):                    # if we are at the end of the list and there was no higher peak... return 0
                 left_list = [0]
 
         elif (i_value == l_value):
@@ -118,13 +118,13 @@ def numOfValues(values):
         if (i not in list_of_all_values):
             list_of_all_values.append(i)
 
-    return len(list_of_all_values)      # return number of types of values
+    return len(list_of_all_values)      # return number of values
 
 def run(values):
     num_of_values = numOfValues(values) # find number of values
 
     if (num_of_values <= 1):
-        print(values[0])                # if number of values is 0/1, result is number on any position
+        print(values[0])                # if number of values is 0 or 1, result is number on any position
 
     elif (num_of_values >= 2):
         topH = max(values)
@@ -138,11 +138,11 @@ if __name__ == '__main__':
     values = [ int(_) for _ in input().split() ] # input - values separated by spaces
     valuesN = []
 
-    for i in range(0, len(values)):
+    for i in range(0, len(values)):              # remove duplicates
         if (values[i] < 1):
             exit(1)
 
         if i == 0 or (values[i] != values[i-1] and i > 0):
-            valuesN.append(values[i])   # remove duplicates
+            valuesN.append(values[i])
 
     run(valuesN)
